@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Groove Academy
 
-## Getting Started
+Site web pour l'école de musique Groove Academy, permettant la gestion des cours, réservations et paiements en ligne.
 
-First, run the development server:
+## Technologies utilisées
 
+- **Frontend** : Next.js 14 avec TypeScript
+- **Styling** : Tailwind CSS
+- **Base de données** : Supabase (PostgreSQL)
+- **Paiements** : Stripe
+- **Authentication** : Supabase Auth
+- **Déploiement** : Railway
+
+## Prérequis
+
+- Node.js 18+
+- npm ou yarn
+- Compte Supabase
+- Compte Stripe
+- Compte Railway
+
+## Installation
+
+1. Cloner le repository :
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/votre-username/groove-academy.git
+cd groove-academy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installer les dépendances :
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Créer un fichier `.env.local` à la racine du projet avec les variables suivantes :
+```env
+NEXT_PUBLIC_SUPABASE_URL=votre-url-supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=votre-clé-anon
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=votre-clé-publique-stripe
+STRIPE_SECRET_KEY=votre-clé-secrète-stripe
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Lancer le serveur de développement :
+```bash
+npm run dev
+```
 
-## Learn More
+## Structure du projet
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/              # Pages et routes Next.js
+├── components/       # Composants React réutilisables
+├── lib/             # Utilitaires et configurations
+├── types/           # Types TypeScript
+└── styles/          # Styles globaux
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Fonctionnalités
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Présentation des cours et tarifs
+- Réservation de cours d'essai
+- Paiement en ligne sécurisé
+- Recommandation de cours par IA
+- Réservation de salles de répétition
+- Gestion des inscriptions au concert de fin d'année
+- Formulaire de contact
+- Carte interactive
 
-## Deploy on Vercel
+## Contribution
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork le projet
+2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
