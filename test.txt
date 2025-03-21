@@ -1,0 +1,2 @@
+Ceci est un fichier de test pour démontrer le processus de commit.
+Date : 21 mars 15h30 
