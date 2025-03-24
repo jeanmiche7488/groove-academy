@@ -232,17 +232,45 @@ export default function CoursePage() {
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
   const [selectedInstrumentForReservation, setSelectedInstrumentForReservation] = useState<string | null>(null);
 
-  const handleReservation = (instrumentId: string) => {
-    setSelectedInstrumentForReservation(instrumentId);
-    setSelectedCourse(null);
-    setSelectedWorkshop(null);
+  const handleReservation = (courseId: string) => {
+    setSelectedInstrumentForReservation(courseId);
     setIsReservationModalOpen(true);
   };
 
   const handleWorkshopReservation = (workshopId: string) => {
-    setSelectedInstrumentForReservation(null);
-    setSelectedCourse(null);
-    setSelectedWorkshop(null);
+    setSelectedInstrumentForReservation(workshopId);
+    setIsReservationModalOpen(true);
+  };
+
+  const handleCourseInscription = (courseId: string) => {
+    localStorage.setItem('reservationType', 'inscription');
+    localStorage.setItem('courseType', 'instrument');
+    localStorage.setItem('initialStep', 'instrument-choice');
+    setSelectedInstrumentForReservation(courseId);
+    setIsReservationModalOpen(true);
+  };
+
+  const handleCourseTrial = (courseId: string) => {
+    localStorage.setItem('reservationType', 'trial');
+    localStorage.setItem('courseType', 'instrument');
+    localStorage.setItem('initialStep', 'instrument-choice');
+    setSelectedInstrumentForReservation(courseId);
+    setIsReservationModalOpen(true);
+  };
+
+  const handleWorkshopInscription = (workshopId: string) => {
+    localStorage.setItem('reservationType', 'inscription');
+    localStorage.setItem('courseType', 'workshop');
+    localStorage.setItem('initialStep', 'workshop-choice');
+    setSelectedInstrumentForReservation(workshopId);
+    setIsReservationModalOpen(true);
+  };
+
+  const handleWorkshopTrial = (workshopId: string) => {
+    localStorage.setItem('reservationType', 'trial');
+    localStorage.setItem('courseType', 'workshop');
+    localStorage.setItem('initialStep', 'workshop-choice');
+    setSelectedInstrumentForReservation(workshopId);
     setIsReservationModalOpen(true);
   };
 
@@ -307,7 +335,7 @@ export default function CoursePage() {
                   <p className="text-gray-300 flex-1">{course.description}</p>
                   <button
                     onClick={() => setSelectedCourse(course.id)}
-                    className="mt-4 inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-indigo-600 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-300"
+                    className="mt-4 w-full inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-indigo-600 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-300"
                   >
                     En savoir plus
                   </button>
@@ -315,6 +343,21 @@ export default function CoursePage() {
               </motion.div>
             ))}
           </motion.div>
+
+          <div className="mt-8 flex justify-center space-x-4">
+            <button
+              onClick={() => handleCourseInscription('')}
+              className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-colors duration-300"
+            >
+              S'inscrire à un cours
+            </button>
+            <button
+              onClick={() => handleCourseTrial('')}
+              className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-indigo-800 rounded-lg hover:bg-indigo-700 transition-colors duration-300"
+            >
+              Réserver un cours d'essai
+            </button>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -373,7 +416,7 @@ export default function CoursePage() {
                     <p className="text-gray-300 flex-1">{workshop.description}</p>
                     <button
                       onClick={() => setSelectedWorkshop(workshop.id)}
-                      className="mt-4 inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-indigo-600 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-300"
+                      className="mt-4 w-full inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-indigo-600 bg-white rounded-lg hover:bg-gray-100 transition-colors duration-300"
                     >
                       En savoir plus
                     </button>
@@ -381,6 +424,21 @@ export default function CoursePage() {
                 </motion.div>
               ))}
             </motion.div>
+
+            <div className="mt-8 flex justify-center space-x-4">
+              <button
+                onClick={() => handleWorkshopInscription('')}
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-colors duration-300"
+              >
+                S'inscrire à un atelier
+              </button>
+              <button
+                onClick={() => handleWorkshopTrial('')}
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-indigo-800 rounded-lg hover:bg-indigo-700 transition-colors duration-300"
+              >
+                Réserver un atelier d'essai
+              </button>
+            </div>
           </motion.div>
         </div>
       </main>
