@@ -1,6 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import ReservationModal from '@/components/ReservationModal';
 
 const container = {
   hidden: { opacity: 0 },
@@ -18,6 +22,18 @@ const item = {
 };
 
 export default function TarifsPage() {
+  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reservationType, setReservationType] = useState<'inscription' | 'trial'>('inscription');
+  const [courseType, setCourseType] = useState<'instrument' | 'workshop'>('instrument');
+
+  const handleReservation = (type: 'inscription' | 'trial', course: 'instrument' | 'workshop') => {
+    localStorage.setItem('reservationType', type);
+    localStorage.setItem('courseType', course);
+    localStorage.setItem('initialStep', course === 'workshop' ? 'workshop-choice' : 'instrument-choice');
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-indigo-900">
       <main className="py-8 flex flex-col">
@@ -88,6 +104,27 @@ export default function TarifsPage() {
                   </div>
                   <span className="text-xl font-bold text-indigo-400">95€/mois</span>
                 </div>
+                <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">Cours d'Essai</h3>
+                    <p className="text-sm text-gray-400">1h</p>
+                  </div>
+                  <span className="text-xl font-bold text-indigo-400">35€</span>
+                </div>
+                <div className="flex flex-col gap-3 pt-4">
+                  <button
+                    onClick={() => handleReservation('inscription', 'instrument')}
+                    className="w-full bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-indigo-500 transition-colors"
+                  >
+                    S'inscrire à un cours
+                  </button>
+                  <button
+                    onClick={() => handleReservation('trial', 'instrument')}
+                    className="w-full bg-indigo-800 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-indigo-900 transition-colors"
+                  >
+                    Réserver un cours d'essai
+                  </button>
+                </div>
               </div>
             </motion.div>
 
@@ -111,6 +148,27 @@ export default function TarifsPage() {
                     <p className="text-sm text-gray-400">1h30 par semaine</p>
                   </div>
                   <span className="text-xl font-bold text-indigo-400">50€/mois</span>
+                </div>
+                <div className="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">Atelier d'Essai</h3>
+                    <p className="text-sm text-gray-400">1h30</p>
+                  </div>
+                  <span className="text-xl font-bold text-indigo-400">25€</span>
+                </div>
+                <div className="flex flex-col gap-3 pt-4">
+                  <button
+                    onClick={() => handleReservation('inscription', 'workshop')}
+                    className="w-full bg-indigo-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-indigo-500 transition-colors"
+                  >
+                    S'inscrire à un atelier
+                  </button>
+                  <button
+                    onClick={() => handleReservation('trial', 'workshop')}
+                    className="w-full bg-indigo-800 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-indigo-900 transition-colors"
+                  >
+                    Réserver un atelier d'essai
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -146,6 +204,10 @@ export default function TarifsPage() {
           </motion.div>
         </div>
       </main>
+      <ReservationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 } 
